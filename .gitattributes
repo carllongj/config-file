@@ -1,0 +1,4 @@
+*.md eol=lf
+*.txt eol=lf
+*.tex eol=lf
+.vimrc eol=lf

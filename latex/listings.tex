@@ -1,0 +1,31 @@
+\usepackage{listings} % 引入代码插入包
+\usepackage{color}    % 引入颜色包
+\usepackage{xcolor}   % 引入扩展颜色包
+\definecolor{code_bg}{RGB}{43,43,43} % 定义代码整个背景颜色
+\definecolor{code_scomment}{RGB}{127,127,114} % 定义单行注释背景颜色
+\definecolor{code_mcomment}{RGB}{98,151,85} % 定义多行注释背景颜色
+\definecolor{code_color}{RGB}{169,183,198} % 定义代码的格式与颜色
+\definecolor{code_key_color}{RGB}{204,120,50} % 定义关键字的颜色
+\definecolor{code_str_color}{RGB}{106,135,89} % 定义字符串的颜色
+\newfontfamily{\kt}{微软雅黑}
+\newfontfamily{\con}{Consolas}
+\lstset{
+     frame=lrtb,    % 设置占据左右上下空间
+     language=Java, % 设置编程语言为java
+     aboveskip=3mm,
+     belowskip=3mm,
+     showstringspaces=false,
+     columns=flexible,
+     numbers=none,                       % 不开启行号显示
+     numberstyle=\tiny\color{gray},       % 设置行号的格式
+     % commentstyle=\color{green},        % 设置单行注释的颜色与格式
+     keywordstyle=\color{code_key_color}, % 设置关键字的颜色
+     stringstyle=\color{code_str_color}, % 设置字符串的颜色
+     basicstyle=\con\color{code_color}  % 设置当当前格式代码为 consolas 并且设置颜色
+     breaklines=true,
+     breakatwhitespace=true,
+     tabsize=2,                       % 设置tab键对应的空格数
+     backgroundcolor=\color{code_bg}, % 设置背景颜色
+     morecomment=[l][\kt\color{code_scomment}]{//}, % 设置单行注释的颜色
+     morecomment=[n][\kt\color{code_mcomment}]{/*}{*/} % 设置多行注释的颜色
+}

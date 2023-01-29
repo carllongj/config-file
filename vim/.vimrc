@@ -111,6 +111,7 @@ set expandtab
 
 colorscheme gruvbox
 " colorscheme gotham256
+" unlet g:gruvbox_contrast
 set bg=dark
 " 显示输入的命令
 set showcmd

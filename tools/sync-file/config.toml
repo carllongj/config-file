@@ -1,0 +1,16 @@
+[sync.rsync]
+# 设置 rsync 的文件路径,它的环境必须要与 python 的环境相同
+rsync_path = '/mnt/d/carl/soft/wsl/rsync/bin/rsync'
+
+# 是否设置为安静模式,将不输出非错误日志
+with_quiet = false
+
+[[sync.path_list]]
+# 监控的源目录
+src_path = '/mnt/d/carl/work/20221101_start/code/suunto-cloud/cloud-system-dashboard/src/main/resources/static/'
+# 改动后复制到的目录
+dest_path = '/mnt/d/carl/work/20221101_start/code/suunto-cloud/cloud-system-dashboard/target/classes/static/'
+
+[[sync.path_list]]
+src_path = '/mnt/d/carl/work/20221101_start/code/suunto-cloud/cloud-system-dashboard/src/main/resources/templates/'
+dest_path = '/mnt/d/carl/work/20221101_start/code/suunto-cloud/cloud-system-dashboard/target/classes/templates/'

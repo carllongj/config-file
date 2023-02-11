@@ -37,3 +37,5 @@ function copyFrom($path,$target='.'){
 
 Set-Alias cpt copyTo
 Set-Alias cpf copyFrom
+# 设置输出编码
+$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding

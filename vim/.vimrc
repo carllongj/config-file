@@ -33,6 +33,15 @@ function SetPythonComment()
   call setline(6 ,"# @Description   : ")
 endfunction
 
+" Bash的注释
+function SetBashComment()
+  call setline(1 , "#!/bin/bash")
+  call setline(2 ,"# @Author        : carllongj")
+  call setline(3 ,"# @Email         : carllongj@gmail.com")
+  call setline(4 ,"# @Date          : ".strftime("%Y年%m月%d日"))
+  call setline(5 ,"# @Description   : ")
+endfunction
+
 function CompileRun()
   if &filetype == 'python'
     " 保存当前文件并执行
@@ -84,6 +93,7 @@ autocmd BufNewFile *.java,*.js,*.c,*.cpp exec ":call SetComment()"
 autocmd BufNewFile * normal G
 autocmd BufNewFile *.java exec ":call SetClassName()"
 autocmd BufNewFile *.py exec ":call SetPythonComment()"
+autocmd BufNewFile *.sh exec ":call SetBashComment()"
 " 定义所有的缩写格式
 autocmd FileType * exec ":call SetAbbreviate()"
 

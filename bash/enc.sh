@@ -2,7 +2,7 @@
 OPENSSL_EXEC=
 OPENSSL_PATH=
 
-while getopts ":p::" arg
+while getopts "p:" arg
 do
   case ${arg} in
     "p") OPENSSL_PATH=${OPTARG};;
@@ -26,7 +26,7 @@ function checkOpenssl(){
   fi
   if [[ -z ${OPENSSL_EXEC} ]]
   then
-    which openssl 1>/dev/null 2>&1 
+    which openssl 1>/dev/null 2>&1
     local EXIST=$?
     if [[ ${EXIST} -eq 0 ]]
     then
@@ -70,8 +70,8 @@ function checkOpenssl(){
   }
 
   function ChekEnv(){
-    checkOpenssl() "$1"
-    checkRsaFile()
+    checkOpenssl "$1"
+    checkRsaFile
   }
 
   function EncryptFile(){
@@ -81,10 +81,12 @@ function checkOpenssl(){
 
     openssl enc -e -aes-256-cbc -a -pbkdf2 -salt -in <file> -out <out>
     openssl enc -e -aes-256-cbc -a -pbkdf2 -salt -in <file> -out <out>
+    openssl genrsa -out id_rsa 4096
+    openssl rsa -in id_rsa -out id_rsa.pub -pubout
   }
 
 CheckEnv ${OPENSSL_PATH}
-EncryptFile 
+EncryptFile
 
 
 

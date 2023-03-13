@@ -1,4 +1,13 @@
-*.md eol=lf
-*.txt eol=lf
-*.tex eol=lf
-.vimrc eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.tex text eol=lf
+*.groovy text eol=lf
+
+.vimrc text eol=lf
+
+*.gif   binary
+*.jar   binary
+*.jpeg  binary
+*.jpg   binary
+*.png   binary
+*.vsd   binary

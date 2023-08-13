@@ -9,7 +9,7 @@ if (Test-Path($ChocolateyProfile)) {
 # 需要执行 Install-Module -Name Terminal-Icons -Repository PSGallery
 Import-Module -Name Terminal-Icons
 # 需要安装 oh-my-posh
-oh-my-posh init pwsh --config 'C:\Users\carllongj\AppData\Local\Programs\oh-my-posh\themes\atomic.omp.json' | Invoke-Expression
+oh-my-posh init pwsh --config 'C:\Users\carllongj\AppData\Local\Programs\oh-my-posh\themes\night-owl.omp.json' | Invoke-Expression
 
 Set-PSReadLineOption -PredictionSource History
 

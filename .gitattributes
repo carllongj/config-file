@@ -2,6 +2,8 @@
 *.txt text eol=lf
 *.tex text eol=lf
 *.groovy text eol=lf
+*.sh text eol=lf
+*.lua text eol=lf
 
 .vimrc text eol=lf
 

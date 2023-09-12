@@ -18,24 +18,15 @@ require("nvim-tree").setup()
 
 -- 语法高亮设置 treesitter 配置
 require("nvim-treesitter.configs").setup({
+  -- 部分下不下来可以使用 :TSInstall <language> 来下载
   ensure_installed = {
     "vim",
-    --"bash",
     "java",
     "c",
     "python",
     "cpp",
     "json",
-    "javascript",
-    --"typescript",
     "lua",
-    "rust",
-    --"make",
-    --"html",
-    --"gitignore",
-    --"markdown",
-    --"yaml",
-    --"toml"
   },
 
   highlight = { enable = true },
@@ -61,25 +52,23 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-  automatic_installation = true,
-  handlers = nil,
+  -- 不能下载的使用 :MasonInstall <package> 来下载
+  -- 每一个服务都需要在下面配置启动
+  ensure_installed = {
+    "lua_ls",
+    -- e.g ,java language server
+    -- "jdtls",
+  }
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
 lspconfig.lua_ls.setup({
-  capabilities = capabilities,  
+  capabilities = capabilities,
 })
-lspconfig.bashls.setup({})
-lspconfig.clangd.setup({})
-lspconfig.volar.setup({})
-lspconfig.tsserver.setup({})
-lspconfig.html.setup({})
-lspconfig.cssls.setup({})
-lspconfig.jsonls.setup({})
-lspconfig.eslint.setup({})
-lspconfig.pyright.setup({})
+-- add lsp startup here,e.g
+-- lspconfig["jdtls"].setup({})
 
 --  cmp 配置信息
 local cmp_status_ok, cmp = pcall(require, "cmp")
@@ -145,8 +134,10 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
+    -- 使用 lsp 服务的代码补全
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    -- 文件路径补全
     { name = 'path' },
   }, {
     { name = 'buffer' },

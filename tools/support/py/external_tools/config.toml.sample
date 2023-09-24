@@ -1,0 +1,8 @@
+[ext_config.config]
+# 是否启用默认的处理器
+disable_default_handlers = false
+
+handler_scan_path = [
+  # 扫描的路径地址
+]
+

@@ -58,6 +58,8 @@ require("mason-lspconfig").setup({
     "lua_ls",
     -- e.g ,java language server
     -- "jdtls",
+    -- "clangd",
+    -- "kotlin-language-server",
   }
 })
 
@@ -69,6 +71,8 @@ lspconfig.lua_ls.setup({
 })
 -- add lsp startup here,e.g
 -- lspconfig["jdtls"].setup({})
+-- 该名称并不一定是插件的名称,看 :Mason 命令提示的名称
+-- kotlin-languager-server 它的 lsp 名称是 kotlin_language_server
 
 --  cmp 配置信息
 local cmp_status_ok, cmp = pcall(require, "cmp")

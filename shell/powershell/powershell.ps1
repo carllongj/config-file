@@ -6,11 +6,13 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 # 导入终端显示图标
+# 需要安装字体(Nerd Font),下载 Cascadia Code NF
 # 需要执行 Install-Module -Name Terminal-Icons -Repository PSGallery
 Import-Module -Name Terminal-Icons
 # 需要安装 oh-my-posh
 oh-my-posh init pwsh --config 'C:\Users\carllongj\AppData\Local\Programs\oh-my-posh\themes\night-owl.omp.json' | Invoke-Expression
 
+# 需要安装 PSReadLine,执行 Install-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionSource History
 
 Set-PSReadlineKeyHandler -Key Tab -Function Complete # 设置 Tab 键补全

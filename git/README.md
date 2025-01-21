@@ -8,6 +8,12 @@
   # Arch 安装
   sudo pacman -S git-delta
   ```
+* 普通使用,需要先配置 delta,将其配置文件拷贝到配置目录
+ ```
+   delta a.json b.json
+
+   delta src/ dest/
+ ```
 
 #### 配置 delta
 * 将 `delta` 目录拷贝到 `~/.config/`目录下,`delta` 默认从 `XDG_CONFIG_DIR` 环境变量读取配置文件,这些配置

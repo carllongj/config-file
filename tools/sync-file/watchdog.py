@@ -1,10 +1,10 @@
-import os
 import time
 import rtoml
+import subprocess
 
-from watchdog.events import *
-from watchdog.observers import *
-from pathlib import *
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+from pathlib import Path
 
 CONFIG_FILE = 'config.toml'
 
@@ -23,7 +23,7 @@ def parseConfig(config_path: str) -> dict:
 
 
 def parseOptions(rsync_config) -> str:
-    options = "-av"
+    options = "-av" # default copy options
     if 'with_quiet' in rsync_config and rsync_config['with_quiet']:
         options += "q"
     return options
@@ -43,8 +43,10 @@ class Handler(FileSystemEventHandler):
 
     def on_any_event(self, event):
         src_path, dest_path = judgePath(event.src_path, self.config)
-        cmd = f"{self.rsync_config['rsync_path']} {parseOptions(self.rsync_config)} {src_path} {dest_path}"
-        os.system(cmd)
+        args = [self.rsync_config['rsync_path'], parseOptions(self.rsync_config), src_path, dest_path]
+        proc = subprocess.Popen(args)
+        proc.wait()
+
 
 
 if __name__ == '__main__':
@@ -63,7 +65,7 @@ if __name__ == '__main__':
 
     try:
         while True:
-            time.sleep(1)
+            time.sleep(60)
     except (KeyboardInterrupt, IOError) as e:
         observer.stop()
     observer.join()

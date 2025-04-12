@@ -1,3 +1,6 @@
+-- 在初始化时会加载 lazy 以管理所有的插件,因此需要保证该仓库可以正确的 clone 到本地,
+-- 可以通过 git config --global http.https://github.com/.proxy http://<host>:<port>设置一个全局代理
+-- 以保证可以正确的克隆
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({

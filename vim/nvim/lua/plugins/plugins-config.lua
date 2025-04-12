@@ -16,7 +16,10 @@ vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup()
 
 
--- 语法高亮设置 treesitter 配置
+-- 语法高亮设置 treesitter 配置,此部分的配置的内容也是会从github上下
+-- 载,因此可能出现下载失败的文件,可以使用设置环境变量来启动 nvim
+--
+-- http_proxy=http://<ip>:<port> nvim
 require("nvim-treesitter.configs").setup({
   -- 部分下不下来可以使用 :TSInstall <language> 来下载
   ensure_installed = {

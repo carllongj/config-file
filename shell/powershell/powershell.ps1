@@ -1,3 +1,6 @@
+# 注： 执行以下命令时可能需要修改 ps 的执行策略
+# Set-ExecutionPolicy RemoteSigned
+
 Set-Alias qemu qemu-system-i386.exe
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
@@ -5,14 +8,14 @@ if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
 
-# 导入终端显示图标
+# 导入终端显示图标,图标默认情况会为乱码,需要安装以下字体
 # 需要安装字体(Nerd Font),下载 Cascadia Code NF
 # 需要执行 Install-Module -Name Terminal-Icons -Repository PSGallery
 Import-Module -Name Terminal-Icons
 # 需要安装 oh-my-posh
 oh-my-posh init pwsh --config 'C:\Users\carllongj\AppData\Local\Programs\oh-my-posh\themes\night-owl.omp.json' | Invoke-Expression
 
-# 需要安装 PSReadLine,执行 Install-Module PSReadLine -Force
+# 需要安装 PSReadLine,执行 Install-Module PSReadLine -Scope CurrentUser -Force
 Set-PSReadLineOption -PredictionSource History
 
 Set-PSReadlineKeyHandler -Key Tab -Function Complete # 设置 Tab 键补全

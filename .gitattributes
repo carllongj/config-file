@@ -1,15 +1,46 @@
-*.md text eol=lf
-*.txt text eol=lf
-*.tex text eol=lf
-*.groovy text eol=lf
-*.sh text eol=lf
-*.lua text eol=lf
+# 统一文本文件换行符为 LF（Linux 风格）
+* text=auto eol=lf
 
-.vimrc text eol=lf
+# 明确声明源码文件类型为文本文件，使用 LF 换行符
+*.c     text eol=lf
+*.h     text eol=lf
+*.cpp   text eol=lf
+*.hpp   text eol=lf
 
-*.gif   binary
+# 脚本类文件：保持为 LF，避免 shell 报错（如 /bin/sh^M）
+*.sh    text eol=lf
+*.py    text eol=lf
+*.pl    text eol=lf
+*.rb    text eol=lf
+*.groovy    text eol=lf
+*.lua   text eol=lf
+*.vimrc text eol=lf
+
+# Makefile 和配置类文件
+Makefile text eol=lf
+*.mk     text eol=lf
+*.conf   text eol=lf
+*.ini    text eol=lf
+
+# Markdown 和文档类
+*.md     text eol=lf
+*.txt    text eol=lf
+*.tex    text eol=lf
+
+# Windows 专用批处理文件，保留 CRLF（仅限 .bat/.cmd）
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+# 二进制文件：禁止 Git 处理换行
+*.png    binary
+*.jpg    binary
+*.gif    binary
+*.jpeg   binary
+
+*.ico    binary
+*.pdf    binary
+*.zip    binary
+*.exe    binary
+*.dll    binary
 *.jar   binary
-*.jpeg  binary
-*.jpg   binary
-*.png   binary
 *.vsd   binary

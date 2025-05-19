@@ -23,8 +23,34 @@ local plugins = {
 
   "christoomey/vim-tmux-navigator", -- 用ctl-hjkl来定位窗口
   "nvim-treesitter/nvim-treesitter", -- 语法高亮
-  "p00f/nvim-ts-rainbow", -- 配合treesitter，不同括号颜色区分
-
+  -- 此插件已经不兼容 neovim 0.11版本了,在打开语法树高亮时会报错
+  --"p00f/nvim-ts-rainbow", -- 配合treesitter，不同括号颜色区分
+  -- 将使用如下配置来使用彩虹括号
+    {
+    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+    config = function()
+      local rainbow_delimiters = require('rainbow-delimiters')
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          lua = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-blocks',
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        }
+      }
+    end
+  },
   {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim", -- 这个相当于mason.nvim和lspconfig的桥梁

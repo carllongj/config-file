@@ -12,7 +12,10 @@ if (Test-Path($ChocolateyProfile)) {
 # 需要安装字体(Nerd Font),下载 Cascadia Code NF
 # 需要执行 Install-Module -Name Terminal-Icons -Repository PSGallery
 Import-Module -Name Terminal-Icons
-# 需要安装 oh-my-posh
+
+# 需要安装 oh-my-posh,这些主题文件在 oh-my-posh 的
+# https://github.com/JanDeDobbeleer/oh-my-posh/tree/main/themes 目录下,并且可能存在兼容性问题,尽量使用
+# 新版本的 配置文件.
 oh-my-posh init pwsh --config 'C:\Users\carllongj\AppData\Local\Programs\oh-my-posh\themes\night-owl.omp.json' | Invoke-Expression
 
 # 需要安装 PSReadLine,执行 Install-Module PSReadLine -Scope CurrentUser -Force

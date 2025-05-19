@@ -15,6 +15,20 @@
 3. 健康检查的命令
   ```
     # 尾行模式下输入
-    
+
     :checkhealth
+  ```
+
+
+### 部分更新命令
+* 常规更新
+  ```bash
+    # 更新 Tree-Sitter
+    :TSUpdate
+
+    # 更新 Mason
+    :MasonUpdate
+
+    # 同步所有插件更新
+    :Lazy Update
   ```

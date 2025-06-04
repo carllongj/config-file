@@ -75,7 +75,19 @@ local plugins = {
     'nvim-telescope/telescope.nvim', tag = '0.1.8', -- 文件检索,使用新版官网的配置
     dependencies = {'nvim-lua/plenary.nvim'}
   },
-
+  {
+    'mbbill/undotree', -- 安装 undo 的图形树显示
+  },
+  {
+    -- 用以加载 jdtls 的插件,它是客户端插件,需要 mason 来安装
+    -- jdtls 的 lsp 服务端.
+    'mfussenegger/nvim-jdtls',
+    ft = "java", -- java 文件时才使用.
+    dependencies = {
+       'williamboman/mason.nvim', -- 依赖 mason
+    }
+  },
+  "mfussenegger/nvim-dap" -- 用以支持调试
 }
 local opts = {} -- 注意要定义这个变量
 

@@ -47,6 +47,7 @@ require('nvim-treesitter.configs').setup({
 require('mason').setup({
   ui = {
     icons = {
+      -- 设置 mason 管理的符号显示
       package_installed = '✓',
       package_pending = '➜',
       package_uninstalled = '✗'
@@ -60,42 +61,15 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     'lua_ls',
     -- e.g ,java language server
-    -- "jdtls",
+    -- 若不需要 jdtls,注释掉即可.
+    -- 'jdtls',
+    -- 适配 jdtls 的调试器与单元测试器,若不使用 jdtls,以下两个可以一并注释掉.
+    -- 'java-test',
+    -- 'java-debug-adapter',
+    -- 用以支持python,它使用 node 实现.
+    -- 'pyright',
     -- "clangd",
     -- "kotlin-language-server",
-  }
-})
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspconfig = require('lspconfig')
-
-local lua_on_attach = function (client, bufnr)
-  local opts = {buffer = bufnr};
-
-  -- 找到对应的声明
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  -- 找到对应的定义
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  -- 找到对应的引用
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
-end
-
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  on_attach = lua_on_attach,
-  settings = {
-    Lua = {
-      diagnostics = {
-        -- 用以解决 vim 全局变量警告
-        globals = { 'vim' },
-      }
-    }
   }
 })
 

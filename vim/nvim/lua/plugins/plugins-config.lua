@@ -210,3 +210,18 @@ require('gitsigns').setup({
   }
 })
 
+
+-- 配置 telescope 的显示模式
+require('telescope').setup({
+  defaults = {
+    -- 设置目录显示为智能模式
+    path_display = { 'smart' },
+    -- 设置忽略的目录,即不对这些目录做文件检索
+    file_ignore_patterns = {
+      'target/', -- 忽略 maven 项目使用的 target 目录
+      '%.git/', -- 忽略 .git/ 目录
+      'build/', -- 忽略 cmake 使用的构建目录.
+      'venv/', -- 忽略 python 的虚拟环境目录
+    }
+  }
+})

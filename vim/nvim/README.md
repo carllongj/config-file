@@ -33,11 +33,12 @@
                 "-X",
                 opts.method,
             },
-           -- 增加 curl 的代理配置.
+           -- 增加 curl 的代理配置 开始
             {
                 "-x",
                 "http://127.0.0.1:7890",
             },
+           -- 增加 curl 的代理配置 结束
             opts.data and { "-d", "@-" } or vim.NIL,
 
   ```

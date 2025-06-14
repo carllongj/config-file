@@ -30,7 +30,19 @@ local workspace_dir = vim.fn.stdpath('data') .. '/jdtls-workspace/' .. vim.fn.fn
 local debug_agent = mason_path .. '/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar'
 
 -- 项目根目录识别规则
-local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
+-- jdtls 是可以根据 .classpath 文件来进行构建 lsp,因此可以根据对应的项目构建来生成 .classpath 文件.
+-- maven 项目可以直接使用命令来进行生成 mvn eclipse:eclipse 生成.
+-- gradle 项目则需要在插件列表中添加 eclipse 插件.然后调用 gradlew eclipse 生成.
+local root_dir = require("jdtls.setup").find_root({
+  '.git',
+  'mvnw',
+  'gradlew',
+  'pom.xml',
+  'build.gradle',
+  '.classpath',
+  '.project',
+  'settings.gradle',
+})
 
 if root_dir == nil then
   return
@@ -55,7 +67,13 @@ local on_attach_config = function(_,buf)
     return { noremap = true, silent = true, buffer = buf,desc = description }
   end
   -- 优化导入包,移除没有使用的包,ctrl + alt + o 优化导入, java 特有的快捷键定义
-  vim.keymap.set('n', '<C-A-o>', function() require('jdtls').organize_imports() end, make_opt('Optimize Import packages'))
+  vim.keymap.set('n', '<C-A-o>', function()
+    require('jdtls').organize_imports()
+  end, make_opt('Optimize Import packages'))
+
+  vim.keymap.set('n', '<leader>v', function ()
+    require('jdtls').extract_variable()
+  end,make_opt('extract variable'))
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

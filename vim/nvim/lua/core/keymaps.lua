@@ -1,5 +1,5 @@
 -- 设置前缀键为空格键
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
 -- 查看所有的配置的快捷键通过 :map 进行查看
 
@@ -25,53 +25,55 @@ local make_opt = function(desc,noremap,silent)
 end
 
 -- 通过 :h vim.keymap.set 查看帮助信息
--- -------------- 插入模式 --------- --
 -- 在插入模式下,快速的敲击 jk 两个字符会被映射为 ESC 按键
--- keymap.set("i", "jk", "<ESC>")
--- keymap.set({'i','n'}, "jk", "<ESC>") # 多个模式的配置
+-- keymap.set('i', 'jk', '<ESC>')
+-- keymap.set({'i','n'}, 'jk', '<ESC>') # 多个模式的配置
+-- -------------- 插入模式快捷键的匹配 --------- --
+-- keymap.set({'i','n'}, 'jk', '<ESC>') # 多个模式的配置
+keymap.set('i', 'sss', '<Cmd>w<CR>',make_opt('write to disk'))
 
 -- <Cmd> 等价于切换到尾行模式,因此会执行对应的命令,它是neovim的
 -- 特性.若是 vim 则使用冒号的方式来定义,它性能更好,语法更加安全.
 -- 例如
--- keymap.set("n", "<leader>nh", ":nohl<CR>")
--- keymap.set("n", "<leader>nh", "<cmd>nohl<CR>")
+-- keymap.set('n', '<leader>nh', ':nohl<CR>')
+-- keymap.set('n', '<leader>nh', '<cmd>nohl<CR>')
 
 -- -------------- 普通模式 --------- --
 -- 设置垂直分屏显示
-keymap.set("n", "<leader>sv", "<C-w>v", make_opt('设置垂直分屏显示'))
+keymap.set('n', '<leader>sv', '<C-w>v', make_opt('设置垂直分屏显示'))
 -- 设置水平分屏显示
-keymap.set("n", "<leader>sh", "<C-w>s", make_opt('设置水平分屏显示'))
+keymap.set('n', '<leader>sh', '<C-w>s', make_opt('设置水平分屏显示'))
 
 -- ---------普通模式下 取消高亮 --------- --
-keymap.set("n", "<leader>nh", "<Cmd>nohl<CR>", make_opt('取消高亮'))
+keymap.set('n', '<leader>nh', '<Cmd>nohl<CR>', make_opt('取消高亮'))
 
 -- plugins start config
 -- 设置普通模式下的 nvim-tree 的开关
-keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", make_opt('目录树切换'))
+keymap.set('n', '<leader>e', '<Cmd>NvimTreeToggle<CR>', make_opt('目录树切换'))
 
 -- 使用 vim 默认的快捷键进行窗口切换,<c-w> + 上下左右/hjkl 进行切换.
 -- 使用 ctrl+shift+H 切换到左窗口
--- keymap.set("n", "<S-H>", "<Cmd>BufferLineCyclePrev<CR>", make_opt('切换到左边的窗口'))
+-- keymap.set('n', '<S-H>', '<Cmd>BufferLineCyclePrev<CR>', make_opt('切换到左边的窗口'))
 -- 使用 ctrl+shift+L 切换到右窗口
--- keymap.set("n", "<S-L>", "<Cmd>BufferLineCycleNext<CR>", make_opt('切换到右边的窗口'))
+-- keymap.set('n', '<S-L>', '<Cmd>BufferLineCycleNext<CR>', make_opt('切换到右边的窗口'))
 
 
 -- 文件检索功能,用以全局设置.
-local builtin = require("telescope.builtin")
+local builtin = require('telescope.builtin')
 -- 检索文件名称包含的字符,类似于 find
-keymap.set("n", "<leader>ff", builtin.find_files, make_opt("file name search"))
+keymap.set('n', '<leader>ff', builtin.find_files, make_opt('file name search'))
 -- 检索文件内容包含的字符,类似于 grep
-keymap.set("n", "<leader>fg", builtin.live_grep, make_opt('file content search'))
+keymap.set('n', '<leader>fg', builtin.live_grep, make_opt('file content search'))
 -- 检索打开的缓冲区,即编辑的页面窗口
-keymap.set("n", "<leader>fb", builtin.buffers, make_opt('buffer search'))
+keymap.set('n', '<leader>fb', builtin.buffers, make_opt('buffer search'))
 -- 打开帮助文档.
-keymap.set("n", "<leader>fh", builtin.help_tags, make_opt('document search'))
+keymap.set('n', '<leader>fh', builtin.help_tags, make_opt('document search'))
 
 -- undo 变更历史库的快捷键
-keymap.set("n", "<leader>ud", "<Cmd>UndotreeToggle<CR>", make_opt('打开undo历史展示树'))
+keymap.set('n', '<leader>ud', '<Cmd>UndotreeToggle<CR>', make_opt('打开undo历史展示树'))
 
 -- 设置显示所有报错信息的窗口,以便快速跳转到报错的位置
-keymap.set("n", "<leader>q", function ()
+keymap.set('n', '<leader>q', function ()
   -- 通过 vim 调用函数
   vim.diagnostic.setqflist()
 end, make_opt('显示错误信息'))

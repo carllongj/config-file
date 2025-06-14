@@ -13,7 +13,12 @@ require('lualine').setup({
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  update_focused_file = {
+    enable = true,     -- 自动更新 tree 中高亮的文件
+    update_root = false, -- 是否改变 root，可按需改成 true
+  },
+})
 
 
 -- 语法高亮设置 treesitter 配置,此部分的配置的内容也是会从github上下

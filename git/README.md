@@ -24,18 +24,18 @@
       autocrlf = input
       editor = nvim
       pager = delta
-    
+
     [interactive]
       diffFilter = delta --color-only --features=interactive
-    
+
     [include]
       path = /home/carl/.config/delta/themes.gitconfig
-    
+
     [delta]
       features = gruvbox-dark
       line-numbers = true
       side-by-side = true
-    
+
     [delta "interactive"]
       keep-plus-minus-markers = false
   ```

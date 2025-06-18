@@ -1,0 +1,10 @@
+# 定时任务去启动服务.
+[Unit]
+Description = "Timer of Battery Monitor"
+
+[Timer]
+#自从上次执行完毕后经过30秒拉起任务.
+OnUnitInactiveSec=30
+
+[Install]
+WantedBy=default.target

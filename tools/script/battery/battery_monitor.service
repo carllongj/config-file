@@ -1,0 +1,10 @@
+# 自定义电池监控的配置文件,它主要是负责去加载和运行脚本文件.
+[Unit]
+Description = "Service for battery Monitor"
+
+[Service]
+Type = oneshot
+ExecStart = /usr/bin/bash /home/carllongj/.config/systemd/user/battery_monitor.sh
+
+[Install]
+WantedBy=default.target

@@ -75,6 +75,8 @@ require('mason-lspconfig').setup({
     -- 'pyright',
     -- "clangd",
     -- "kotlin-language-server",
+    -- nginx 语法 lsp.
+    -- 'nginx-language-server',
   }
 })
 

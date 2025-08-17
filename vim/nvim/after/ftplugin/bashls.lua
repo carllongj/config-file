@@ -6,7 +6,7 @@
       curl -fsSL https://fnm.vercel.app/install | bash
     2. 通过 fnm 安装 nodejs
       fnm install v22.16.0
-    3. 通过 Mason 进行安装
+    3. 通过 Mason 进行安装 bash-languager-server 即可
 ]]
 
 require('lspconfig').bashls.setup({

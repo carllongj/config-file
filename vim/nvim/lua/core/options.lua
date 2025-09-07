@@ -4,11 +4,27 @@ local opt = vim.opt
 opt.relativenumber = true
 opt.number = true
 
--- 缩进设置
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
+-- 设置 tab 在编辑器显示的宽度.
+opt.tabstop = 4
+-- 设置使用控制自动缩进或者命令缩进时(>>/<<)的移动宽度
+opt.shiftwidth = 4
+
+-- 插入 tab 时,是否以空格替换.
+opt.expandtab = false
+-- 是否继承上一行的缩进,即遇到层级变化时会自动缩进
+-- 没有层级变化时保持一致.
 opt.autoindent = true
+
+-- 不可见字符显示设置.
+opt.list = true
+
+-- 设置显示隐藏字符对应的文本
+opt.listchars = {
+    tab = "»·",     -- Tab 显示成 » 加点（点的数量由 tabstop 决定）
+    space = "·",    -- 空格显示为 ·
+    trail = "·",    -- 行尾多余空格显示为 ·
+    eol = "↴"       -- 行尾显示换行符
+}
 
 -- opt.wrap = true
 

@@ -20,6 +20,26 @@
     # 运行 Proton (替换为需要使用的 Proton 版本路径)
     ~/.steam/steam/steamapps/common/Proton\ 9.0/proton run <exe>
   ```
+### 存档文件
+* `Linux` 下借助 `Proton` 运行的 `Windows` 游戏会有一个 `compat`目录,这个本质上是提供
+  模拟 `Windows` 的目录,首先需要找到 `gameId`,这个 `Id`会作为参数在`steam`启动的命令行
+  参数中,通过以下命令查看.
+  ```bash
+    # 查找关键字的第一个进程通常是启动的根进程.
+    # 它的参数会带有 AppId 作为参数,<key> 是游戏进程关键字
+    pgrep -fa <key> |grep AppId
+  ```
+* 通过 `AppId` 来找到对应的 `compat` 目录,它内部就包含了 `Windows` 的 `C盘`驱动器.对于
+  一般的游戏存档都是默认存储到`C盘`的用户目录下.
+  ```bash
+    # 这个是游戏的专属目录,它是 proton对于游戏运行的 compat目录
+    cd ~/.local/share/Steam/steamapps/compatdata/<AppId>
+
+    # 以下目录通常是存档目录,它一定是在上面的 compat 目录中.
+    # 以下路径是相较于 `compatdata` 目录.
+    # proton中,模拟的windows 用户固定为 `steamuser`
+    cd pfx/drive_c/users/steamusers/
+  ```
 
 ### Linux 命令行参数
 * 指定启动的客户端语言
@@ -64,6 +84,39 @@
     # 个人全局配置
     $XDG_CONFIG_DIR/MangoHud/MangoHud.conf
   ```
+
+##### 原理说明
+* `MangoHud` 是基于 `Vulkan` 的用以监控`FPS`,温度,`CPU/GPU负载`等信息的覆盖层.
+* 它的可执行文件是一个脚本,用以设置环境变量并且加载应用程序.它本身并不是一个
+  可执行文件,而是一个脚本(`/usr/bin/mangohud`).通过`Vulkan`提供的调用链插入覆盖层的逻辑.
+  ```bash
+    # 核心逻辑,设置环境变量,并且执行传入的参数
+    exec env MANGOHUD=1 "$@"
+
+    # 启用 preload 的执行命令,通常是加载OpenGL库的.
+    exec env MANGOHUD=1 LD_PRELOAD="${LD_PRELOAD}" "$@"
+  ```
+* `mangohud` 的处理逻辑如下,是否禁用由`/usr/bin/mangohud`中的`DISABLE_LD_PRELOAD`来
+  指定.
+  1. 对于没有禁用 `LD_PRELOAD`的程序(通常只有`反作弊`的程序会检测该环境
+  变量),优先通过`LD_PRELOAD`来加载.这样可以兼容`OpenGL`的程序.
+  2. 对于有`反作弊`监控的游戏,即环境变量中设置了该游戏禁用`LD_PRELOAD`,那么就使用
+  `Vulkan`自带的机制来实现覆盖层.此时`OpenGL`的库将不会有覆盖层.
+
+* 使用建议
+  1. 如果应用具有反作弊系统,最好不要使用`LD_PRELOAD`的方式,可能导致检测到作弊.
+    ```bash
+      # 通过此种方式来运行游戏
+      # 前提是游戏使用的是 vulkan
+      MANGOHUD=1 %command%
+    ```
+  2. 如果应用使用`Vulkan`,就最好使用非`LD_PRELOAD`模式,参看上面启动
+  3. 如果确定应用使用的 `OpenGL`,那么就必须要使用 `LD_PRELOAD`的加载方式来`hook`调用,否则无法显示`hud`.
+    ```bash
+      # 通过命令启动,通常情况下会使用LD_PRELOAD的方式
+      mangohud %command%
+    ```
+
 #### lsfg-vk
 * `lsfg-vk` 是用以通过`Windows`原生的`无损帧生成`软件来实现`Linux`环境下
   的补帧工具,在 `github`选择对应的二进制包安装即可.
@@ -74,7 +127,7 @@
    # 配置,这个图形本质上还是操作的 配置文件.
    paru -S lsfg-vk
 
-   # 配置文件路径地址.
+   # 配置文件路径地址,该目录下的所有*.toml文件
    # ~/.config/lsfg-vk/config.toml
   ```
 * `lsfg` 依赖 `windows` 原版的`无损帧生成`的文件,即 `Lossless.dll`,需要复制

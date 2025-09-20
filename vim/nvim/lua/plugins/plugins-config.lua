@@ -60,6 +60,7 @@ require('mason').setup({
   }
 })
 
+-- mason-lspconfig 会自动的初始化所有已安装的lsp.
 require('mason-lspconfig').setup({
   -- 不能下载的使用 :MasonInstall <package> 来下载
   -- 每一个服务都需要在下面配置启动

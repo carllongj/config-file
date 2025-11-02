@@ -123,3 +123,9 @@ keymap.set('n', '<leader>6', '<Cmd>BufferLineGoToBuffer 6<CR>', make_opt('change
 keymap.set('n', '<Tab>', '<Cmd>bn<CR>', make_opt('change to next buffer'))
 -- 使用 shift + tab
 keymap.set('n', '<S-Tab>', '<Cmd>bp<CR>', make_opt('change to previos buffer'))
+
+-- 配置翻译快捷键,它用以翻译文本块的内容,因此它必须要确保内容已经被选中.
+-- 在可视块模式下才生效的快捷键.
+keymap.set('v', 'ts', ":'<,'>Translate zh<CR>",make_opt('translate selected text to chinese'))
+-- 翻译单个单词的快捷键配置
+keymap.set('n', 'ts', 'viw:Translate zh<CR>',make_opt('translate word to chinese'))

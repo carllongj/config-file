@@ -87,7 +87,13 @@ local plugins = {
        'williamboman/mason.nvim', -- 依赖 mason
     }
   },
-  "mfussenegger/nvim-dap" -- 用以支持调试
+  "mfussenegger/nvim-dap", -- 用以支持调试
+  {
+    -- 用以加载翻译插件
+    "uga-rosa/translate.nvim",
+    lazy = true,                -- 表示懒加载
+    cmd = { "Translate", "TranslateW" },  -- 只有执行这些命令时才加载
+  },
 }
 local opts = {} -- 注意要定义这个变量
 

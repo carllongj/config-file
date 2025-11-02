@@ -233,3 +233,25 @@ require('telescope').setup({
     }
   }
 })
+
+-- 配置 translate 翻译插件,默认使用了 translate-shell
+-- 因此机器上必须要安装,安装命令如下.
+--[[
+   ubuntu 安装
+   sudo apt install translate-shell
+
+   arch 安装
+   sudo pacman -S translate-shell
+]]
+require('translate').setup({
+    default = {
+		command = "translate_shell",
+	},
+	preset = {
+		command = {
+			translate_shell = {
+				args = { "-e", "bing" }
+			}
+		}
+	}
+})

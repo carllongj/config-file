@@ -9,15 +9,17 @@
     3. 通过 Mason 进行安装 bash-languager-server 即可
 ]]
 
-require('lspconfig').bashls.setup({
+local util = require("lspconfig.util")
+-- 使用新版 API 配置
+vim.lsp.start({
+  name = "bashls",
   cmd = { "bash-language-server", "start" },
-  filetypes = { "sh" },
-  root_dir = require('lspconfig.util').find_git_ancestor,
+  root_dir = util.find_git_ancestor(vim.api.nvim_buf_get_name(0)),
   settings = {
     bashIde = {
-      shellcheckPath = "shellcheck", -- 确保可执行
-      enableSourceErrorDiagnostics = true
-    }
-  }
+      shellcheckPath = "shellcheck",
+      enableSourceErrorDiagnostics = true,
+    },
+  },
 })
 

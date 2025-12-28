@@ -5,7 +5,23 @@ vim.cmd[[colorscheme tokyonight-moon]]
 require('lualine').setup({
   options = {
     theme = 'tokyonight'
-  }
+  },
+  --[[
+      sections 用以配置 statuslines 的组件,支持6个显示
+      左侧三个组件: lualine_a,lualine_b,lualine_c
+      右侧三个组件: lualine_x,lualine_y,lualine_z
+      每一个组件都可以显示多个.
+    ]]--
+  sections = {
+    -- lualine_c 用双层表是因为需要对组件进行个性化配置时,就
+    -- 必须要使用双层表.
+    lualine_c = {
+      {
+        'filename', -- 第三个组件显示为文件名称
+        path = 1 , -- 配置显示方式,0: 仅文件名 1: 打开工作路径的相对路径 2: 绝对路径.
+      }
+    },
+  },
 })
 
 -- nvim-tree 插件配置

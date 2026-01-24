@@ -15,28 +15,26 @@
     2. make 项目使用 bear 命令来生成.
 ]]--
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "c",
-  callback = function()
-    -- 判断是否已经安装了 clangd
-    if vim.fn.executable('clangd') == 0 then
-      return
-    end
-
-    local lspconfig = require("lspconfig")
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-
-    if not lspconfig.util.get_active_client_by_name(0, "clangd") then
-      lspconfig.clangd.setup({
-        -- 你可以在这里自定义 clangd 启动参数
-        cmd = { "clangd" },
-        capabilities = capabilities,
-      })
-
-      vim.defer_fn(function()
-        vim.cmd("LspStart clangd")
-      end, 100)
-    end
-  end
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "c",
+--   callback = function()
+--     if vim.fn.executable('clangd') == 0 then
+--       return
+--     end
+--     local lspconfig = require("lspconfig")
+--     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--
+--
+--     if not lspconfig.util.get_active_client_by_name(0, "clangd") then
+--       lspconfig.clangd.setup({
+--         -- 你可以在这里自定义 clangd 启动参数
+--         cmd = { "clangd" },
+--         capabilities = capabilities,
+--       })
+--
+--       vim.defer_fn(function()
+--         vim.cmd("LspStart clangd")
+--       end, 100)
+--     end
+--   end
+-- })

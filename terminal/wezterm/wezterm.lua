@@ -27,7 +27,7 @@ return {
   -- 透明背景
   window_background_opacity = 1,
 
-  -- 启用漂亮的标签栏
+  -- 启用标签栏
   use_fancy_tab_bar = true,
   hide_tab_bar_if_only_one_tab = false,
 
@@ -45,7 +45,7 @@ return {
     -- 分屏（横向）
     { key = "d", mods = "ALT|SHIFT", action = wezterm.action.SplitVertical({}) },
 
-    -- 面板切换：Alt + hjkl（Vim风格）
+    -- 面板切换: Alt + hjkl(Vim风格)
     { key = "h", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Left") },
     { key = "j", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Down") },
     { key = "k", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Up") },
@@ -61,6 +61,6 @@ return {
     { key = "p", mods = "CTRL|SHIFT", action = wezterm.action.ActivateCommandPalette },
   },
 
-  -- Windows 下自动打开 WSL（如果需要）
+  -- Windows 下自动打开 WSL(如果需要)
   default_domain = "WSL:Ubuntu-24.04",
 }

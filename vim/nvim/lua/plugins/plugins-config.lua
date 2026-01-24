@@ -4,7 +4,7 @@ vim.cmd[[colorscheme tokyonight-moon]]
 -- 启用底部状态栏信息
 require('lualine').setup({
   options = {
-    theme = 'tokyonight'
+    theme = 'tokyonight',
   },
   --[[
       sections 用以配置 statuslines 的组件,支持6个显示
@@ -53,8 +53,12 @@ require('nvim-treesitter.configs').setup({
     'lua',
   },
 
+  -- 启用语法高亮显示
   highlight = { enable = true },
+  -- 启用自动缩进
   indent = { enable = true },
+  -- 启用折叠
+  fold = { enable = true },
 
   -- 不同括号颜色区分
   rainbow = {
@@ -76,7 +80,9 @@ require('mason').setup({
   }
 })
 
--- mason-lspconfig 会自动的初始化所有已安装的lsp.
+--[[
+  mason-lspconfig 会自动的初始化已安装的全部 LSP.
+]]
 require('mason-lspconfig').setup({
   -- 不能下载的使用 :MasonInstall <package> 来下载
   -- 每一个服务都需要在下面配置启动

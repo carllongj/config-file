@@ -87,3 +87,32 @@ opt.smartcase = true
 opt.termguicolors = true
 opt.signcolumn = "yes"
 
+-- 设置光标的显示模式
+opt.guicursor = table.concat({
+  "n-v-c:block",      -- 普通模式 block
+  "i-ci:ver25",       -- 插入模式 竖线
+  "r-cr:hor20",       -- 替换模式 横线
+  "o:hor50",          -- 操作待定模式
+  "ve:ver35",         -- 虚拟编辑模式
+}, ",")
+
+
+--[[
+  此部分配置用以配置 tree-sitter 的折叠. 
+]]--
+
+-- 是否启用折叠
+opt.foldenable = true
+
+-- 折叠的控制方式,使用表达式进行
+-- 折叠,通常用以 nvim_treesitter 配置.
+opt.foldmethod = "expr" -- 可选 manual,indent,syntax,expr,marker
+
+-- 折叠的计算表达式
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- 打开时默认展开所有折叠.
+opt.foldlevel = 99
+
+-- 在左侧显示一列表示折叠
+opt.foldcolumn = "1"

@@ -38,3 +38,31 @@
 --     end
 --   end
 -- })
+
+
+--- dap 的 C 语言配置 调试配置
+
+local dap = require('dap')
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = vim.fn.stdpath('data') .. "/mason/bin/codelldb",
+    args = {"--port", "${port}"},
+  },
+}
+
+dap.configurations.c = {
+  {
+    name = "Debug C",
+    type = "codelldb",
+    request = "launch",
+    -- 选择执行的二进制文件.
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}

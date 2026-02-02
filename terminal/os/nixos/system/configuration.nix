@@ -57,7 +57,7 @@
         serif = ["Noto Sans" "Noto Sans CJK SC"];
         sansSerif = ["Noto Serif" "Noto Serif CJK SC"];
         monospace = ["JetBrainsMono Nerd Font"];
-	emoji = [ "Noto Color Emoji" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
@@ -89,7 +89,7 @@
 
     # 使用 gnome 桌面后端环境
     # desktopManager.gnome.enable = true;
-    
+
     # 使用 plasma6 桌面后端环境.
     desktopManager.plasma6.enable = true;
     displayManager = {
@@ -132,7 +132,8 @@
       tree
     ];
   };
-  
+
+  # 创建于用户名相同的用户组
   users.groups.carl = {};
 
   # wheel 进行sudo执行时是否需要密码
@@ -148,6 +149,7 @@
   environment.systemPackages = with pkgs; [
     wget
     alacritty
+    kitty
     neovim
     git
     pciutils

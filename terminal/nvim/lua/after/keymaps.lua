@@ -1,9 +1,6 @@
--- 设置前缀键为空格键
-vim.g.mapleader = ' '
-
--- 查看所有的配置的快捷键通过 :map 进行查看
-
+-- 用以定义加载 lazy 插件之后加载的配置文件.以下为定义插件相关快捷键.
 local keymap = vim.keymap
+
 -- noremap 用以禁止递归映射,silent 用以禁止映射执行时显示执行命令
 local opt = {noremap = true,silent = true}
 
@@ -24,28 +21,6 @@ local make_opt = function(desc,noremap,silent)
   }
 end
 
--- 通过 :h vim.keymap.set 查看帮助信息
--- 在插入模式下,快速的敲击 jk 两个字符会被映射为 ESC 按键
--- keymap.set('i', 'jk', '<ESC>')
--- keymap.set({'i','n'}, 'jk', '<ESC>') # 多个模式的配置
--- -------------- 插入模式快捷键的匹配 --------- --
--- keymap.set({'i','n'}, 'jk', '<ESC>') # 多个模式的配置
-keymap.set('i', 'sss', '<Cmd>w<CR>',make_opt('write to disk'))
-
--- <Cmd> 等价于切换到尾行模式,因此会执行对应的命令,它是neovim的
--- 特性.若是 vim 则使用冒号的方式来定义,它性能更好,语法更加安全.
--- 例如
--- keymap.set('n', '<leader>nh', ':nohl<CR>')
--- keymap.set('n', '<leader>nh', '<cmd>nohl<CR>')
-
--- -------------- 普通模式 --------- --
--- 设置垂直分屏显示
-keymap.set('n', '<leader>sv', '<C-w>v', make_opt('设置垂直分屏显示'))
--- 设置水平分屏显示
-keymap.set('n', '<leader>sh', '<C-w>s', make_opt('设置水平分屏显示'))
-
--- ---------普通模式下 取消高亮 --------- --
-keymap.set('n', '<leader>nh', '<Cmd>nohl<CR>', make_opt('取消高亮'))
 
 -- plugins start config
 -- 设置普通模式下的 nvim-tree 的开关
@@ -78,6 +53,9 @@ keymap.set('n', '<leader>q', function ()
   vim.diagnostic.setqflist()
 end, make_opt('显示错误信息'))
 
+
+
+
 -- LSP 快捷键全局设置
 -- 跳转到定义的位置.
 keymap.set('n', 'gd', builtin.lsp_definitions, make_opt('Go to Definition'))
@@ -109,6 +87,38 @@ keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, make_opt('previous diagn
 keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, make_opt('next diagnostic'))
 -- 诊断列表
 keymap.set('n', '<leader>da', vim.diagnostic.setloclist, make_opt('diagnostic list'))
+
+
+
+--- dap 快捷键配置,以 Jetbrains 快捷键调试配置.
+local dap = require('dap')
+-- 设置继续运行直到下一个断点.在未启用调试时,它会准备拉起调试.
+keymap.set('n', '<F9>', function() dap.continue() end)
+-- 跳过当前执行.
+keymap.set('n', '<F8>', function() dap.step_over() end)
+-- 进入当前执行.
+keymap.set('n', '<F7>', function() dap.step_into() end)
+-- 跳出当前函数栈帧
+keymap.set('n', '<S-F8>', function() dap.step_out() end)
+
+-- 设置获取取消断点.
+keymap.set('n', '<leader>b', function() dap.toggle_breakpoint() end)
+
+-- dapui 界面启用或者关闭
+keymap.set('n', '<leader>du', function() require('dapui').toggle() end)
+
+-- 悬停查看变量值(类似于 VS Code 鼠标悬停)
+keymap.set('n', 'K', function()
+  require("dapui").eval()
+end, { buffer = true })
+
+-- 实时监控表达式 (Watches)
+keymap.set('n', '<leader>dw', function()
+  local expr = vim.fn.input('Watch expression: ')
+  require("dapui").elements.watches.add(expr)
+end, { buffer = true })
+
+
 
 -- bufferline 插件提供的切换buffer,可以根据情况继续添加.
 -- 它与neovim默认使用的编号不同,它根据当前打开的窗口进行切换.

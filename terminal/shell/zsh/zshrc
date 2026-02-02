@@ -120,6 +120,10 @@ source $ZSH/oh-my-zsh.sh
 ### need install lsd ###
 # alias ls='lsd'
 
+# for kitty terminal
+# alias icat="kitty +kitten icat"
+# alias kssh="kitty +kitten ssh"
+# alias kdiff="kitty +kitten diff"
 
 ### need install delta ###
 # alias delta='delta --config ~/.config/delta/delta.config'
@@ -128,3 +132,12 @@ source $ZSH/oh-my-zsh.sh
 # 禁止 zsh 自己解析通配符
 setopt no_nomatch
 # source /home/carl/.config/broot/launcher/bash/br
+
+if [[ -f $HOME/.profile ]];then
+  source $HOME/.profile
+fi
+
+# 自定义配置环境变量
+if [[ -f $HOME/.env ]];then
+  source $HOME/.env
+fi

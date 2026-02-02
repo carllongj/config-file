@@ -98,7 +98,7 @@ opt.guicursor = table.concat({
 
 
 --[[
-  此部分配置用以配置 tree-sitter 的折叠. 
+  此部分配置用以配置 tree-sitter 的折叠.
 ]]--
 
 -- 是否启用折叠

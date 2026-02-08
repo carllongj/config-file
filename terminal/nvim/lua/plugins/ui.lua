@@ -22,6 +22,7 @@ return {
     end,
   },
   {
+    -- icons 图标的插件.
     "nvim-tree/nvim-web-devicons",
     lazy = true, -- 它通常被其他插件调用，所以设置为延迟加载
     opts = {
@@ -100,7 +101,18 @@ return {
     },
   },
   {
-    -- nvim 文件树配置.
+    -- nvim-tree 的目录的左侧目录树结构,方便对整体目录结构进行查看,当
+    -- 光标移动到左侧的目录树时(同时将进入命令模式),还具有以下的能力.
+    --[[
+      常用以下交互命令
+
+      键入 a -> 在光标位置(所在目录下)创建一个文件或者目录(目录必须要以/结尾).
+      键入 r -> 重命名光标位置的文件或者目录.
+      键入 d -> 删除光标位置的文件或者目录.
+      键入 x -> 剪切光标位置的文件或者目录,它与nvim中的复制不同.
+      键入 c -> 复制光标位置的文件或者目录,它与nvim中的复制不同.
+      键入 p -> 粘贴通过 x 或者 c 复制的文件或者目录.
+    ]]--
     "nvim-tree/nvim-tree.lua",
     -- 图标依赖配置信息.
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -125,7 +137,10 @@ return {
           },
         },
         filters = {
-          dotfiles = false, -- 是否隐藏点文件
+          dotfiles = false, -- 是否隐藏dotfile文件或者目录.
+          custom = {
+            "^\\.git$", -- 隐藏目录树下的.git目录.
+          },
         },
         update_focused_file = {
           enable = true,     -- 自动更新 tree 中高亮的文件

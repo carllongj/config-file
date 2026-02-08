@@ -154,3 +154,28 @@
     ```
   * 选择 `VAAPI` 设备,选择对应要使用的显卡即可.
   * 在使用之前,要确保`vaapi`等库的驱动安装完成.
+
+#### 壁纸引擎
+
+* `Wallpaper Engine` 不支持 `Linux`,`Linux` 可以使用如下方案来使用`wallpaper engine`的动态
+   壁纸.仅在 `KDE Plasma` 环境下.
+  1. 安装 `壁纸插件`,通过 `AUR` 安装.
+  ```bash
+    paru -S plasma6-wallpapers-wallpaper-engine-git
+  ```
+  2. 按照如下操作,设置桌面壁纸插件.
+  ```bash
+    # 操作
+    桌面点击鼠标右键 -> 桌面与壁纸 -> 壁纸类型
+
+    # 选择以下的插件.
+    Wallpaper Engine for KDE
+  ```
+    * 若没有该插件,则执行以下命令重启`KDE plasma`
+    ```bash
+      systemctl --user restart plasma-plasmashell
+    ```
+  * 可能出现找不到壁纸,`Library` 则需要选择以下的壁纸路径,才能正确获取到订阅的壁纸.
+    ```bash
+      ~/.local/share/Steam
+    ```

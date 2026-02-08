@@ -55,3 +55,11 @@
     # 同步所有插件更新
     :Lazy Update
   ```
+
+### 本地软链接
+* 增加使用指定配置文件的软链接.
+  ```bash
+    ln -s ./init.lua ~/.config/nvim/init.lua
+    ln -s ./after ~/.config/nvim/after
+    ln -s ./lua ~/.config/nvim/lua
+  ```

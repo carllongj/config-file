@@ -131,7 +131,6 @@ source $ZSH/oh-my-zsh.sh
 
 # 禁止 zsh 自己解析通配符
 setopt no_nomatch
-# source /home/carl/.config/broot/launcher/bash/br
 
 if [[ -f $HOME/.profile ]];then
   source $HOME/.profile

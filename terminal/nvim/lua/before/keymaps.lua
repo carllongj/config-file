@@ -2,28 +2,12 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+local utils = require('core.utils')
+local make_opt = utils.make_opt
+
 -- 查看所有的配置的快捷键通过 :map 进行查看
 
 local keymap = vim.keymap
--- noremap 用以禁止递归映射,silent 用以禁止映射执行时显示执行命令
-local opt = {noremap = true,silent = true}
-
-local make_opt = function(desc,noremap,silent)
-  if noremap == nil then
-    noremap = true
-  end
-
-  if silent == nil then
-    silent = true
-  end
-
-  return {
-    noremap = noremap,
-    silent = silent,
-    -- desc 用以在 map 命令查看快捷键时显示说明
-    desc = desc,
-  }
-end
 
 -- 通过 :h vim.keymap.set 查看帮助信息
 -- 在插入模式下,快速的敲击 jk 两个字符会被映射为 ESC 按键
@@ -47,3 +31,19 @@ keymap.set('n', '<leader>sh', '<C-w>s', make_opt('设置水平分屏显示'))
 
 -- ---------普通模式下 取消高亮 --------- --
 keymap.set('n', '<leader>nh', '<Cmd>nohl<CR>', make_opt('取消高亮'))
+
+----------- buffer 相关的快捷键 ----------------
+-- Alt+h, Alt+l 设置为前后 buffer 的快速切换.
+keymap.set('n', '<A-h>', '<Cmd>bp<CR>', make_opt('切换到上一个buffer'))
+keymap.set('n', '<A-l>', '<Cmd>bn<CR>', make_opt('切换到下一个buffer'))
+
+-- 设置alt+数字跳转到指定的 buffer 窗口,buffer 窗口打开时可能不按照
+-- 顺序,因此以下的快捷键可能会无效.
+--[[ for i = 1,9 do
+--   keymap.set('n', ('<A-%s>'):format(i),
+--     ('<Cmd>b %s<CR>'):format(i), make_opt('跳转到指定的buffer窗口'))
+-- end
+]]--
+
+-- 设置 alt+w 关闭当前的buffer窗口.
+keymap.set('n','<A-w>', '<Cmd>bd<CR>', make_opt('关闭当前的buffer窗口'))

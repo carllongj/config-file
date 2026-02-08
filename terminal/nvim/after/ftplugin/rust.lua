@@ -17,6 +17,24 @@ vim.lsp.start({
   on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
+      -- 进行输入时提示自动导入包.
+      completion = {
+        autoimport = {
+          enable = true,
+        }
+      },
+      -- 进行导入的语句定义
+      import = {
+        granularity = {
+          -- 设置对模块进行合并导入.可选以下类型
+          --[[
+            module, 按照模块进行合并.
+            item,每一个导入占一行.
+          ]]--
+          group = "module",
+        },
+        prefix = "self",
+      },
       check = { command = 'clippy' },
       cargo = { allFeatures = true },
       procMacro = { enable = true },

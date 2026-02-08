@@ -21,7 +21,9 @@ return {
     local telescope = require("telescope")
     telescope.setup({
       defaults = {
-        path_display = "smart",
+        -- 设置路径的显示模式(它会影响到lsp的引用查找显示).
+        -- smart 表示智能显示模式
+        path_display = { "smart" },
         mappings = {
           i = {
             -- 在 telescope 界面下插入模式的快捷键.

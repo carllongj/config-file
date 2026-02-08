@@ -1,26 +1,7 @@
 -- 用以定义加载 lazy 插件之后加载的配置文件.以下为定义插件相关快捷键.
 local keymap = vim.keymap
-
--- noremap 用以禁止递归映射,silent 用以禁止映射执行时显示执行命令
-local opt = {noremap = true,silent = true}
-
-local make_opt = function(desc,noremap,silent)
-  if noremap == nil then
-    noremap = true
-  end
-
-  if silent == nil then
-    silent = true
-  end
-
-  return {
-    noremap = noremap,
-    silent = silent,
-    -- desc 用以在 map 命令查看快捷键时显示说明
-    desc = desc,
-  }
-end
-
+local utils = require('core.utils')
+local make_opt = utils.make_opt
 
 -- plugins start config
 -- 设置普通模式下的 nvim-tree 的开关
@@ -56,10 +37,10 @@ end, make_opt('显示错误信息'))
 
 
 
--- LSP 快捷键全局设置
--- 跳转到定义的位置.
+-- LSP 快捷键全局设置,针对所有语言服务器生效.
+-- 跳转到符号定义的位置.
 keymap.set('n', 'gd', builtin.lsp_definitions, make_opt('Go to Definition'))
--- 打开引用窗口
+-- 打开引用窗口,检查所有被引用的位置.
 keymap.set('n', 'gr', builtin.lsp_references, make_opt('Find References'))
 -- 查找所有的实现
 keymap.set('n', 'gi', builtin.lsp_implementations, make_opt('Find Implementations'))
@@ -117,22 +98,6 @@ keymap.set('n', '<leader>dw', function()
   local expr = vim.fn.input('Watch expression: ')
   require("dapui").elements.watches.add(expr)
 end, { buffer = true })
-
-
-
--- bufferline 插件提供的切换buffer,可以根据情况继续添加.
--- 它与neovim默认使用的编号不同,它根据当前打开的窗口进行切换.
-keymap.set('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', make_opt('change to buffer 1'))
-keymap.set('n', '<leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>', make_opt('change to buffer 2'))
-keymap.set('n', '<leader>3', '<Cmd>BufferLineGoToBuffer 3<CR>', make_opt('change to buffer 3'))
-keymap.set('n', '<leader>4', '<Cmd>BufferLineGoToBuffer 4<CR>', make_opt('change to buffer 4'))
-keymap.set('n', '<leader>5', '<Cmd>BufferLineGoToBuffer 5<CR>', make_opt('change to buffer 5'))
-keymap.set('n', '<leader>6', '<Cmd>BufferLineGoToBuffer 6<CR>', make_opt('change to buffer 6'))
-
--- 注册切换到 下一个缓冲区 以及 上一个缓冲区 的快捷键
-keymap.set('n', '<Tab>', '<Cmd>bn<CR>', make_opt('change to next buffer'))
--- 使用 shift + tab
-keymap.set('n', '<S-Tab>', '<Cmd>bp<CR>', make_opt('change to previos buffer'))
 
 -- 配置翻译快捷键,它用以翻译文本块的内容,因此它必须要确保内容已经被选中.
 -- 在可视块模式下才生效的快捷键.

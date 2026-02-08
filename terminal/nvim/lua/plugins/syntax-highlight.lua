@@ -3,6 +3,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter", -- 语法高亮
+    branch = "master", -- 用以指定分支,并且兼容 NixOS 系统下配置.
     build = ":TSUpdate", -- 每次插件时自动更新所有的语法解析器.
     config = function()
       -- 语法高亮设置 treesitter 配置,此部分的配置的内容也是会从github上下

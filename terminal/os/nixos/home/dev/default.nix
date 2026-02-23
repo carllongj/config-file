@@ -5,5 +5,6 @@ _ :
   imports = [
     ./git
     ./neovim
+    ./vscode
   ];
 }

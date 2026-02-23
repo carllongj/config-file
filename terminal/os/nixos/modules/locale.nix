@@ -15,6 +15,14 @@
       LC_NUMERIC = "zh_CN.UTF-8";
       LC_PAPAER = "zh_CN.UTF-8";
       LC_CTYPE = "zh_CN.UTF-8";
+      LC_ADDRESS = "zh_CN.UTF-8";
+      LC_IDENTIFICATION = "zh_CN.UTF-8";
+      LC_MONETARY = "zh_CN.UTF-8";
+      LC_NAME = "zh_CN.UTF-8";
+      LC_TELEPHONE = "zh_CN.UTF-8";
+      # 注意：LC_MESSAGES 决定程序界面语言。
+      # 如果你想让应用界面是中文，必须加上这一行：
+      LC_MESSAGES = "zh_CN.UTF-8";
     };
     # 用以设置系统中支持的语言列表.
     # 类似于 localegen 命令来生成支持的 locale.
@@ -24,41 +32,43 @@
     ];
   };
 
-  # 设置中文输入法.
-  i18n.inputMethod = {
-    # 启用输入法,该选项会自动设置大部分环境变量.
-    enable = true;
-    # 设置输入法类型.
-    type = "fcitx5";
-    # 安装输入法软件.
-    fcitx5.addons = with pkgs; [
-      qt6Packages.fcitx5-chinese-addons # 包含拼音等基础中文输入.
-      fcitx5-gtk # GTK 程序的兼容性支持
-      fcitx5-lua # Lua 脚本支持.
-    ];
-  };
-
   # 设置默认下载的字体软件包.
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
+    noto-fonts-lgc-plus
 
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+
+    # inter
+    fira-sans
+    roboto
+
+    # 图标字体库
+    font-awesome
+    # 谷歌图标字体库
+    material-icons
   ];
 
 
   # 设置字体属性.
   fonts = {
     enableDefaultPackages = true;
-    # 配置字体的渲染.
+    # 配置字体的渲染,它主要的作用是查找字体以及处理字体回退.
     fontconfig = {
       enable = true;
       defaultFonts = {
         serif = ["Noto Sans" "Noto Sans CJK SC"];
         sansSerif = ["Noto Serif" "Noto Serif CJK SC"];
-        monospace = ["JetBrainsMono Nerd Font"];
+        # 等宽字体设置回退
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Material Icons"
+          "Noto Sans Old Persian"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

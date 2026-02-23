@@ -9,9 +9,27 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # 引入 agenix 用以隐私文件加解密
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # 引入 walker 搜索框设置
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # nix flatpak 应用启用,因它不需要依赖
+    # 任何 nixpkgs 版本,因此不需要设置 follows
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak?ref=latest";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, nix-flatpak, ... }@inputs:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -23,38 +41,30 @@
     moduleConfigurations = lib.filesystem.listFilesRecursive modulesDirectory|>
       builtins.filter (path: lib.hasSuffix ".nix" (builtins.baseNameOf path));
 
-    # 定义变量的属性集合.
-    var = {
-      # 全局配置用户名(系统用户以及git中配置的用户名).
-      username = "carllongj";
-
-      # 设置全局代理的地址.
-      # proxy = "<http_proxy_addr>";
-
-      # git 环境变量配置.
-      git = {
-        # 设置git 使用的用户名,若未设置则使用 var.username.
-        # username = "<set git username>";
-
-        # 设置 git 使用的邮箱地址.
-        # email = "<set git email>"
-
-        # 设置 git 配置的代理服务器(github).
-        # proxy = "<git_proxy_addr>";
-      };
-    };
+    # 引入定义的配置变量.
+    var = import ./config { inherit lib; };
   in
   {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
       # 将变量收集一并传递给模块.
-      specialArgs = { inherit inputs var; };
+      specialArgs = { inherit inputs nixpkgs var; };
       # 设置加载的模块
       modules = [
         ./system
 
         # 引入 home-manager 的模块
         home-manager.nixosModules.home-manager
+
+        # 引入 agenix 模块
+        agenix.nixosModules.default
+
+        # 引用 nix-flatpak 模块
+        nix-flatpak.nixosModules.nix-flatpak
+
+        # 密钥文件引入
+        ./secrets
+
       ] ++ moduleConfigurations;
     };
   };

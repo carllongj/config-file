@@ -1,8 +1,8 @@
-{ pkgs, ... } :
+{ pkgs, lib, ... } :
 
 {
-  # 配置 zsh
-  programs.kitty = {
+  # 配置 zsh,设置默认行为,以便于后续覆盖.
+  programs.kitty = lib.mkDefault {
     enable = true;
 
     # 字体配置

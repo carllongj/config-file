@@ -1,4 +1,4 @@
-{ nixpkgs, var, ... } :
+{ inputs, nixpkgs, var, ... } :
 
 {
   home-manager = {
@@ -9,7 +9,7 @@
     # /etc/profiles/per-user/${username} 下
     useUserPackages = true;
     # 用户自定义变量进行传递
-    extraSpecialArgs = { inherit var; };
+    extraSpecialArgs = { inherit inputs var; };
 
     # 默认用户加载指定目录下的配置.
     users."${var.username}" = {

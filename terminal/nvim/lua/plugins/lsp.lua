@@ -38,6 +38,7 @@ return {
         -- 每一个服务都需要在下面配置启动
         ensure_installed = {
           'lua_ls',
+          -- 'bashls' -- bash 需要安装 npm
           -- e.g ,java language server
           -- 若不需要 jdtls,注释掉即可.
           -- 'jdtls',

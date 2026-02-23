@@ -2,7 +2,9 @@
 
 let
   # 获取配置的代理地址.
-  proxy = var.git.proxy or var.proxy;
+  proxy = var.user.git.proxy or var.proxy;
+  username = var.user.git.username or var.username;
+  email = var.user.git.email;
 in
 {
   # 配置 git 相关配置信息
@@ -12,8 +14,8 @@ in
     # git 相关的配置项
     settings = {
       user = {
-        name = var.username;
-        email = var.git.email;
+        name = username;
+        email = email;
       };
 
       init.defaultBranch = "main";

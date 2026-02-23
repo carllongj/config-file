@@ -1,5 +1,8 @@
-{ nixpkgs, lib, ... } :
+{ pkgs, lib, var, ... } :
 
+let
+  enableNixLd = var.enableNixLd or false;
+in
 {
   # nixos 默认只允许安装开源软件,开启该选项
   # 才允许安装闭源软件,允许所有闭源软件.
@@ -22,13 +25,27 @@
       # 仅保留最近7天的构建信息.
       options = lib.mkDefault "--delete-older-than 7d";
     };
-    # 配置 nix 的实验特性,就可以不在命令选项中声明.
-    # settings = {
-    #   experimental-features = [
-    #     "nix-command"
-    #     "flakes"
-    #     "pipe-operators" # 启用管道符支持
-    #     ];
-    # };
+
+    # 配置 nix 的实验特性,就可以在执行 nix 相关命令时不再使用
+    # --option extra-experimental-features 来指定实验特性.
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators" # 启用管道符支持
+      ];
+    };
   };
+
+  # 解决应用程序使用FHS的标准链接库路径(/lib64/ld-linux-x86-64.so)
+  # (NixOS 不使用FHS)导致无法正常运行应用.
+  programs.nix-ld = if ( enableNixLd ) then {
+    enable = true;
+    # libraries = with pkgs; [
+    #   zlib
+    #   curl
+    #   openssl
+    # ];
+  }
+  else { enable = false; };
 }

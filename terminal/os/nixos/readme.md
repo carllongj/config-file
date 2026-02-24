@@ -1,3 +1,8 @@
+## 致谢 (Credits)
+
+本项目基于 [mylinuxforwork/dotfiles](https://github.com/mylinuxforwork/dotfiles) 进行NixOS桌面系统环境定制。
+感谢原作者提供的优秀 Hyprland 架构。所有原始代码权利归原作者所有，本项目修改部分同样遵循 GPL-3.0 协议。
+
 ### 配置说明
 * `config/variable.nix` 中定义了一些变量用以快速设置配置属性.
 ```

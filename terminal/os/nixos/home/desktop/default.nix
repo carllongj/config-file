@@ -4,7 +4,7 @@
     ./base.nix
 
     # 引入外部配置
-    # ./external
+    ./external
 
     # niri 配置
     # ./niri

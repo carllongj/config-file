@@ -155,19 +155,39 @@
   # 启用 XDG Desktop Portal 用以 Wayland 录屏
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-gtk
+      # 启用 hyprland 门户
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+
+    # 配置门户
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
   };
 
   # 启用 sunshine
   services.sunshine = {
     enable = true;
-    # 允许自启动
-    autoStart = true;
+    # 是否自启动
+    autoStart = false;
     # 允许控制输入
     capSysAdmin = true;
     # 允许自动打开需要的端口
     openFirewall = true;
   };
+
+  # 额外配置 sunshine 服务,以便于正确找到nvidia显卡.
+  # systemd.user.services.sunshine.serviceConfig = {
+  #   Environment = [
+  #     # 强制链接到 NVIDIA 驱动库路径
+  #     "LD_LIBRARY_PATH=/run/opengl-driver/lib"
+  #     # 显式告知使用 nvidia 后端
+  #     "NVD_BACKEND=direct"
+  #   ];
+  # };
 
   # 启用 flatpak 应用
   services.flatpak = {
@@ -190,16 +210,16 @@
     ];
 
     # 重写flatpak 的权限属性
-    overrides = {
-      "io.missioncenter.MissionCenter" = {
-        context = {
-          # 允许访问硬件设备
-          devices = [ "all" ];
+    # overrides = {
+    #   "io.missioncenter.MissionCenter" = {
+    #     context = {
+    #       # 允许访问硬件设备
+    #       devices = [ "all" ];
 
-          sockets = [ "wayland" "fallback-x11" "system-bus" "session-bus" ];
-        };
-      };
-    };
+    #       sockets = [ "wayland" "fallback-x11" "system-bus" "session-bus" ];
+    #     };
+    #   };
+    # };
 
     # 设置 flathub 仓库.
     remotes = lib.mkOptionDefault [

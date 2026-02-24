@@ -117,6 +117,12 @@
       # 通过命令启动,通常情况下会使用LD_PRELOAD的方式
       mangohud %command%
     ```
+* `MangoHud` 时区异常,此种情况只存在`NixOS`下(因为`steam` 的沙盒环境无法复制 `/usr/share/zoneinfo`),因此`MangoHud`
+  无法找到`TZ`指定的时区文件.因此可以通过以下命令来强制要求`MangoHud` 使用固定时区.
+  ```bash
+    # 东八区
+    TZ="GMT-8" MANGOHUD=1 %command%
+  ```
 
 #### lsfg-vk
 * `lsfg-vk` 是用以通过`Windows`原生的`无损帧生成`软件来实现`Linux`环境下
@@ -179,3 +185,22 @@
     ```bash
       ~/.local/share/Steam
     ```
+
+## sunshine
+* `sunshine` 是一个开源自托管的游戏串流主机端软件,主要功能是把主机端`PC`的画面,音频,以及输入进行编码
+  后通过网络发送其它设备,从而实现远程桌面控制以及游戏.
+
+### 配置说明
+* `sunshine` 会自动生成 `~/.config/sunshine` 目录以及相关的配置文件.
+  * `sunshine.conf`, 用以记录 `sunshine` 在`WebUI`中非默认配置项的文件.
+  * `sunshine.log`, `sunshine` 的运行日志记录文件.
+
+#### sunshine.conf
+* `sunshine.conf` 中一些配置说明.
+  * `capture = <type>`,用以设置屏幕捕获后端.
+    * `kms`,`Linux` 下专用的屏幕捕获后端,它不依赖于任何桌面环境,而是直接通过`GPU`的 `framebuffer`获取
+      图像.延迟低,因为直接读取显存,并且它只能捕获显示器正在显示的内容,多个窗口时可能显示的不是主窗口.
+    * `pipewire`,`Wayland` 下最推荐的屏幕捕获方式,它通过`Pipewire + XDG Desktop Portal + DMA-BUF`来捕获
+      桌面,窗口或者画面.它必须要通过`Portal`的允许才能捕获窗口.
+  * `adapter_name = <dev>`,用以设置 `VAAPI` 使用的输出硬件编码设备路径.如`/dev/dri/renderD129`(Intel 核显
+    设备)

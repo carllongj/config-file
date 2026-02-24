@@ -42,6 +42,14 @@ in
     path = "/home/${username}/.sec/smbd.cred";
   };
 
+  # 记录 ubuntu 使用的远程密码
+  age.secrets."ubuntu.remote-pass" = {
+    file = ./ubuntu-remote-pass.age;
+    owner = "${username}";
+    mode = "0600";
+    path = "/home/${username}/.sec/ubuntu-remote-pass";
+  };
+
   # 安装解析相关的工具.
   environment.systemPackages = with pkgs; [
     # 安装 agenix 软件包.

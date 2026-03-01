@@ -22,7 +22,7 @@
 
       userSettings = {
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', monospace";
-        "editor.fontSize" = 14;
+        "editor.fontSize" = 16;
         "editor.fontLigatures" = true;
         "workbench.colorTheme" = "material-icon-theme";
       };

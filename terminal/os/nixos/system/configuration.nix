@@ -19,9 +19,6 @@
     initrd = {
       # 设置引导时额外加载的模块项到镜像中.
       availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-      # 该选项设置必须要强制加载到镜像中的内核模块.
-      # 提前加载 nvidia 驱动
-      kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
       # 隐藏 从 initrd 到真正 root 目录系统的日志.
       verbose = false;

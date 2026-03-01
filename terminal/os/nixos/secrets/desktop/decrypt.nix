@@ -50,6 +50,13 @@ in
     path = "/home/${username}/.sec/ubuntu-remote-pass";
   };
 
+  # frpc 文件不需要映射到文件系统中.
+  age.secrets."frpc-secret-config" = {
+    file = ./frpc-screct-config.age;
+    owner = "services";
+    mode = "0400";
+  };
+
   # 安装解析相关的工具.
   environment.systemPackages = with pkgs; [
     # 安装 agenix 软件包.

@@ -34,18 +34,32 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
-    # 设置模块对应的目录.
-    modulesDirectory = ./modules;
-
-    # 递归加载该模块下的所有 .nix 文件模块.
-    moduleConfigurations = lib.filesystem.listFilesRecursive modulesDirectory|>
-      builtins.filter (path: lib.hasSuffix ".nix" (builtins.baseNameOf path));
-
     # 引入定义的配置变量.
     var = import ./config { inherit lib; };
-  in
-  {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+    loadIfExists = path:
+      if builtins.pathExists path
+        then lib.filesystem.listFilesRecursive path
+        |> builtins.filter (p: lib.hasSuffix ".nix" (builtins.baseNameOf p))
+      else [];
+
+    # 自动加载模块
+    autoload = (name :
+      let
+        # 通用模块
+        autoLoadCommon = ./auto-loading/common;
+        # 系统单独配置
+        autoLoadModule = ./auto-loading/${name};
+
+        # 递归加载该模块下的所有 .nix 文件模块.
+        commonModules = loadIfExists autoLoadCommon;
+        machineModules = loadIfExists autoLoadModule;
+      in
+       commonModules ++ machineModules
+    );
+
+    # 构建操作系统函数.
+    mkSystem = name: nixpkgs.lib.nixosSystem {
       inherit system;
       # 将变量收集一并传递给模块.
       specialArgs = { inherit inputs nixpkgs var; };
@@ -63,9 +77,18 @@
         nix-flatpak.nixosModules.nix-flatpak
 
         # 密钥文件引入
-        ./secrets
+        ./secrets/${name}
 
-      ] ++ moduleConfigurations;
+      ] ++ (autoload "${name}");
+    };
+  in
+  {
+    nixosConfigurations = {
+      # 桌面环境主机配置
+      desktop = mkSystem "desktop";
+
+      # 虚拟机配置环境
+      vm = mkSystem "vm";
     };
   };
 }

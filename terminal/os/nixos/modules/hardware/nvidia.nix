@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   # 启用图形驱动
@@ -6,13 +6,7 @@
     enable = true;
 
     # 启用32位库支持.
-    enable32Bit = true;
-
-    # 不需要再额外安装驱动便可支持
-    extraPackages = with pkgs; [
-      # 安装 intel 核显视频编解码驱动
-      intel-media-driver
-    ];
+    enable32Bit = lib.mkDefault true;
   };
 
   # 允许应用查找驱动支持
@@ -44,8 +38,15 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  environment.systemPackages = with pkgs; [
-    # nvidia 显卡监控应用
-    # nvtopPackages.full
-  ];
+  # 设置 nvidia 使用的引导参数.
+  boot.initrd = {
+      # 该选项设置必须要强制加载到镜像中的内核模块.
+      # 提前加载 nvidia 驱动
+    kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
+  };
 }

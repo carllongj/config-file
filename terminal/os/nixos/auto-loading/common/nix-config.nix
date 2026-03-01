@@ -26,9 +26,12 @@ in
       options = lib.mkDefault "--delete-older-than 7d";
     };
 
-    # 配置 nix 的实验特性,就可以在执行 nix 相关命令时不再使用
-    # --option extra-experimental-features 来指定实验特性.
     settings = {
+      # 将缓冲区设置为 512MB (单位为 bytes)
+      download-buffer-size = 536870912;
+      
+      # 配置 nix 的实验特性,就可以在执行 nix 相关命令时不再使用
+      # --option extra-experimental-features 来指定实验特性.
       experimental-features = [
         "nix-command"
         "flakes"

@@ -27,8 +27,35 @@ in
       # dns = "none";
     };
 
-    # 旁路由地址
-    # nameservers = [ "192.168.1.238" ];
+    # 配置 DNS 地址
+    # nameservers = [
+    #  "8.8.8.8"
+    #  "1.1.1.1"
+    # ];
+
+    # 禁用 resolvconf 服务.
+    # resolvconf.enable = false;
+
+
+    # firewall 默认使用 xtables 实现.
+    nftables = {
+      # 强制使用 nft 实现.
+      enable = true;
+    };
+
+    # 配置 NixOS 系统防火墙配置
+    firewall = {
+      enable = false;
+
+      # 开放端口
+      # allowedTCPPorts = [ 22 80 443 ];
+      # allowedUDPPorts = [ 53 ];
+
+      # 允许端口范围
+      # allowedTcPPortRange = [
+      #   { from = 61000 , to = 62000 }
+      # ];
+    };
 
     # 配置全局网络代理
     proxy = if (globalProxy != null && exportProxy) then {
@@ -56,17 +83,6 @@ in
 
   # 禁用 gnome 的 ssh-agen 服务,防止冲突.
   services.gnome.gcr-ssh-agent.enable = false;
-
-  # 配置 zerotier-one 服务.
-  # services.zerotierone = {
-  #   # 启用 zerotier-one 服务配置.
-  #   enable = true;
-  #   # 设置默认加入的网络
-  #   joinNetworks = [
-  #     # 配置加入的网络
-  #   ];
-  # };
-
 
   environment.systemPackages = with pkgs; [
     # ethtool 命令

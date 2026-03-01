@@ -21,4 +21,10 @@
     # <domain>可以是字符串或者列表
     "192.168.1.238" = [ "n2" ];
   };
+
+  # 配置服务相关元数据.
+  services = {
+    username = "services";
+    group = "services";
+  };
 }

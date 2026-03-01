@@ -36,21 +36,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    noto-fonts-lgc-plus
-
-    nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
-    nerd-fonts.symbols-only
-
-    # inter
-    fira-sans
-    roboto
-
-    # 图标字体库
-    font-awesome
-    # 谷歌图标字体库
-    material-icons
   ];
 
 
@@ -66,8 +52,6 @@
         # 等宽字体设置回退
         monospace = [
           "JetBrainsMono Nerd Font"
-          "Material Icons"
-          "Noto Sans Old Persian"
         ];
         emoji = [ "Noto Color Emoji" ];
       };

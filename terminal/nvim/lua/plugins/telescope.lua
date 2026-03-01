@@ -52,7 +52,8 @@ return {
       }
     })
 
-    -- 加载 fzf 扩展
+    -- 加载 fzf 扩展,遇到无法加载 fzf 扩展时
+    -- :Lazy build telescope-fzf-native.nvim
     telescope.load_extension("fzf")
   end
 }

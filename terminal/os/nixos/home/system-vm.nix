@@ -5,7 +5,7 @@
     ./shell
     ./terminal
     ./dev
-    ./desktop
+    ./desktop/system-vm.nix
   ];
 
   # 声明用户级别环境变量.

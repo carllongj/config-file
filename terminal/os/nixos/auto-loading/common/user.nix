@@ -13,15 +13,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "video"
-      "input"
-      
-      # 渲染硬件加速,render 设备默认权限是 666.
-      # 因此不需要添加组别,默认可用.
-      # "render"
-
-      # 启用gamemode 时设置.
-      "gamemode"
     ];
 
     # 设置用户家目录.
@@ -37,5 +28,4 @@
 
   # 用户设置了使用 zsh,则必须要安装zsh.
   programs.zsh.enable = true;
-
 }

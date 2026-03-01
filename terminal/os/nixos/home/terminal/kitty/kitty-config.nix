@@ -38,30 +38,35 @@
       confirm_os_window_close = 0;
       enable_audio_bell = "yes";
       copy_on_select = "yes";
+
+      # 主题配置
+      background           = "#202020";
+      foreground           = "#adadad";
+      cursor               = "#ffffff";
+      selection_background = "#1a3272";
+      color0               = "#000000";
+      color8               = "#545454";
+      color1               = "#fa5355";
+      color9               = "#fb7172";
+      color2               = "#126e00";
+      color10              = "#67ff4f";
+      color3               = "#c2c300";
+      color11              = "#ffff00";
+      color4               = "#4581eb";
+      color12              = "#6d9df1";
+      color5               = "#fa54ff";
+      color13              = "#fb82ff";
+      color6               = "#33c2c1";
+      color14              = "#60d3d1";
+      color7               = "#adadad";
+      color15              = "#eeeeee";
+      selection_foreground = "#202020";
     };
-    # 额外配置项,用以配置主题颜色,更换主题替换以下配置项即可.
-    extraConfig = ''
-      background            #202020
-      foreground            #adadad
-      cursor                #ffffff
-      selection_background  #1a3272
-      color0                #000000
-      color8                #545454
-      color1                #fa5355
-      color9                #fb7172
-      color2                #126e00
-      color10               #67ff4f
-      color3                #c2c300
-      color11               #ffff00
-      color4                #4581eb
-      color12               #6d9df1
-      color5                #fa54ff
-      color13               #fb82ff
-      color6                #33c2c1
-      color14               #60d3d1
-      color7                #adadad
-      color15               #eeeeee
-      selection_foreground #202020
-    '';
+
+    # extraConfig 使用的是字符串配置,在全局使用
+    # lib.mkDefault 时会导致无法合并从而丢失该配置.
+    # 因此使用 lib.mkDefault 时应使用 settings 来进行
+    # 属性集合配置.
+    # extraConfig = ''''
   };
 }

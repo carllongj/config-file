@@ -15,7 +15,7 @@
     users."${var.username}" = {
       imports = [
         # 引入配置目录
-        ../home
+        ../../home
       ];
     };
   };

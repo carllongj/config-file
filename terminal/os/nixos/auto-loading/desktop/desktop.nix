@@ -29,7 +29,7 @@
   services.dbus.enable = true;
 
   environment.systemPackages = with pkgs; [
-    # pipewire 的声音控制组件安装包.
+    # pipewire 的声音控制可视化组件包.
     pwvucontrol
 
     # 通用播放器使用的控制命令

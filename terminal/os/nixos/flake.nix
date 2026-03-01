@@ -49,7 +49,7 @@
         # 通用模块
         autoLoadCommon = ./auto-loading/common;
         # 系统单独配置
-        autoLoadModule = ./auto-loading/${name};
+        autoLoadModule = (./auto-loading + "/${name}");
 
         # 递归加载该模块下的所有 .nix 文件模块.
         commonModules = loadIfExists autoLoadCommon;
@@ -77,7 +77,7 @@
         nix-flatpak.nixosModules.nix-flatpak
 
         # 密钥文件引入
-        ./secrets/${name}
+        (./secrets + "/${name}")
 
       ] ++ (autoload "${name}");
     };

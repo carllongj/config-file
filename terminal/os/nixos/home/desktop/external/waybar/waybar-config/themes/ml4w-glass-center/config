@@ -1,11 +1,11 @@
-# Copyright (c) 2023-2024 mylinuxforwork
-# Source: https://github.com/mylinuxforwork/dotfiles
-# License: GNU GPL v3.0
+// Copyright (c) 2023-2024 mylinuxforwork
+// Source: https://github.com/mylinuxforwork/dotfiles
+// License: GNU GPL v3.0
 
-# Modified by: carllongj carllongj@gmail.com
-# Date: 2026-02-23
-# Description: 本文件在原作者逻辑基础上进行了以下调整：
-#   1. [修改点一：修改了部分显示组件适配个人使用习惯]
+// Modified by: carllongj carllongj@gmail.com
+// Date: 2026-02-23
+// Description: 本文件在原作者逻辑基础上进行了以下调整：
+//  1. [修改点一：修改了部分显示组件适配个人使用习惯]
 
 {
     // General Settings

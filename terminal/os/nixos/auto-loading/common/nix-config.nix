@@ -29,7 +29,7 @@ in
     settings = {
       # 将缓冲区设置为 512MB (单位为 bytes)
       download-buffer-size = 536870912;
-      
+
       # 配置 nix 的实验特性,就可以在执行 nix 相关命令时不再使用
       # --option extra-experimental-features 来指定实验特性.
       experimental-features = [
@@ -37,6 +37,13 @@ in
         "flakes"
         "pipe-operators" # 启用管道符支持
       ];
+
+      # 1. 指定二进制缓存服务器地址
+      # substituters = [
+      #   "https://mirrors.ustc.edu.cn/nix-channels/store"
+      #   # 官方源
+      #   "https://cache.nixos.org/"
+      # ];
     };
   };
 
